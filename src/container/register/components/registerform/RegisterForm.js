@@ -1,65 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import validate from 'validate.js';
-import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Checkbox, FormHelperText, TextField, Typography, Link } from '@material-ui/core';
 
+import { REGISTER_FORM } from 'const/Schema';
 import useRouter from 'hooks/useRouter';
+import { styles } from './styles';
 
-const schema = {
-  firstName: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 32
-    }
-  },
-  lastName: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 32
-    }
-  },
-  email: {
-    presence: { allowEmpty: false, message: 'is required' },
-    email: true,
-    length: {
-      maximum: 64
-    }
-  },
-  password: {
-    presence: { allowEmpty: false, message: 'is required' },
-    length: {
-      maximum: 128
-    }
-  },
-};
+const useStyles = makeStyles(styles);
 
-const useStyles = makeStyles(theme => ({
-  root: {},
-  fields: {
-    margin: theme.spacing(-1),
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
-      flexGrow: 1,
-      margin: theme.spacing(1)
-    }
-  },
-  policy: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  policyCheckbox: {
-    marginLeft: '-14px'
-  },
-  submitButton: {
-    marginTop: theme.spacing(2),
-    width: '100%'
-  }
-}));
-
-const RegisterForm = ({ className }) => {
+function RegisterForm({ className }) {
   const classes = useStyles();
   const { history } = useRouter();
 
@@ -69,9 +20,9 @@ const RegisterForm = ({ className }) => {
     touched: {},
     errors: {}
   });
-  
+
   useEffect(() => {
-    const errors = validate(formState.values, schema);
+    const errors = validate(formState.values, REGISTER_FORM);
     const checked = formState.values?.policy;
 
     setFormState(formState => ({
@@ -105,80 +56,70 @@ const RegisterForm = ({ className }) => {
     history.push('/');
   };
 
-  const hasError = field =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = field => formState.touched[field] && formState.errors[field] ? true : false;
 
   return (
     <form
-      className={classNames(classes.root, className)}
+      className={className}
       onSubmit={handleSubmit}
     >
       <div className={classes.fields}>
         <TextField
-          error={hasError('firstName')}
-          helperText={
-            hasError('firstName') ? formState.errors.firstName[0] : null
-          }
           label="First name"
           name="firstName"
+          variant="outlined"
           onChange={handleChange}
+          error={hasError('firstName')}
           value={formState.values.firstName || ''}
-          variant="outlined"
+          helperText={hasError('firstName') ? formState.errors.firstName[0] : null}
         />
         <TextField
-          error={hasError('lastName')}
-          helperText={
-            hasError('lastName') ? formState.errors.lastName[0] : null
-          }
-          label="Last name"
           name="lastName"
+          label="Last name"
+          variant="outlined"
           onChange={handleChange}
+          error={hasError('lastName')}
           value={formState.values.lastName || ''}
-          variant="outlined"
+          helperText={hasError('lastName') ? formState.errors.lastName[0] : null}
         />
         <TextField
-          error={hasError('email')}
           fullWidth
-          helperText={hasError('email') ? formState.errors.email[0] : null}
-          label="Email address"
           name="email"
-          onChange={handleChange}
-          value={formState.values.email || ''}
           variant="outlined"
+          label="Email address"
+          onChange={handleChange}
+          error={hasError('email')}
+          value={formState.values.email || ''}
+          helperText={hasError('email') ? formState.errors.email[0] : null}
         />
         <TextField
-          error={hasError('password')}
           fullWidth
-          helperText={
-            hasError('password') ? formState.errors.password[0] : null
-          }
-          label="Password"
-          name="password"
-          onChange={handleChange}
           type="password"
-          value={formState.values.password || ''}
+          name="password"
+          label="Password"
           variant="outlined"
+          onChange={handleChange}
+          error={hasError('password')}
+          value={formState.values.password || ''}
+          helperText={hasError('password') ? formState.errors.password[0] : null}
         />
         <div>
           <div className={classes.policy}>
             <Checkbox
-              checked={formState.values.policy || false}
-              className={classes.policyCheckbox}
-              color="primary"
               name="policy"
+              color="primary"
+              className={classes.policyCheckbox}
+              checked={formState.values.policy || false}
               onChange={handleChange}
             />
-            <Typography
-              color="textSecondary"
-              variant="body1"
-            >
+            <Typography color="textSecondary" variant="body1" >
               I have read the{' '}
               <Link
-                color="secondary"
-                component={RouterLink}
                 to="#"
-                underline="always"
                 variant="h6"
+                color="secondary"
+                underline="always"
+                component={RouterLink}
               >
                 Terms and Conditions
               </Link>
@@ -190,12 +131,12 @@ const RegisterForm = ({ className }) => {
         </div>
       </div>
       <Button
-        className={classes.submitButton}
-        color="secondary"
-        disabled={!formState.isValid}
         size="large"
         type="submit"
+        color="secondary"
         variant="contained"
+        disabled={!formState.isValid}
+        className={classes.submitButton}
       >
         Create account
       </Button>

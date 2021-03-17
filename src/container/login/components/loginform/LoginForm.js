@@ -1,40 +1,16 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import validate from 'validate.js';
-import classNames from 'classnames';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField } from '@material-ui/core';
 
+import { LOGIN_FORM } from 'const/Schema';
 import useRouter from 'hooks/useRouter';
+import { styles } from './styles';
 
-const schema = {
-  email: {
-    presence: { allowEmpty: false, message: 'is required' },
-    email: true
-  },
-  password: {
-    presence: { allowEmpty: false, message: 'is required' }
-  }
-};
+const useStyles = makeStyles(styles);
 
-const useStyles = makeStyles(theme => ({
-  root: {},
-  fields: {
-    margin: theme.spacing(-1),
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
-      flexGrow: 1,
-      margin: theme.spacing(1)
-    }
-  },
-  submitButton: {
-    marginTop: theme.spacing(2),
-    width: '100%'
-  }
-}));
-
-const LoginForm = ({ className }) => {
+function LoginForm({ className }) {
 
   const classes = useStyles();
   const router = useRouter();
@@ -47,7 +23,7 @@ const LoginForm = ({ className }) => {
   });
 
   useEffect(() => {
-    const errors = validate(formState.values, schema);
+    const errors = validate(formState.values, LOGIN_FORM);
 
     setFormState(formState => ({
       ...formState,
@@ -80,46 +56,43 @@ const LoginForm = ({ className }) => {
     router.history.push('/');
   };
 
-  const hasError = field =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = field => formState.touched[field] && formState.errors[field] ? true : false;
 
   return (
     <form
-      className={classNames(classes.root, className)}
+      className={className}
       onSubmit={handleSubmit}
     >
       <div className={classes.fields}>
         <TextField
-          error={hasError('email')}
           fullWidth
-          helperText={hasError('email') ? formState.errors.email[0] : null}
-          label="Email address"
           name="email"
-          onChange={handleChange}
-          value={formState.values.email || ''}
           variant="outlined"
+          label="Email address"
+          onChange={handleChange}
+          error={hasError('email')}
+          value={formState.values.email || ''}
+          helperText={hasError('email') ? formState.errors.email[0] : null}
         />
         <TextField
-          error={hasError('password')}
           fullWidth
-          helperText={
-            hasError('password') ? formState.errors.password[0] : null
-          }
-          label="Password"
-          name="password"
-          onChange={handleChange}
           type="password"
-          value={formState.values.password || ''}
+          name="password"
+          label="Password"
           variant="outlined"
+          onChange={handleChange}
+          error={hasError('password')}
+          value={formState.values.password || ''}
+          helperText={hasError('password') ? formState.errors.password[0] : null}
         />
       </div>
       <Button
-        className={classes.submitButton}
-        color="secondary"
-        disabled={!formState.isValid}
         size="large"
         type="submit"
+        color="secondary"
         variant="contained"
+        disabled={!formState.isValid}
+        className={classes.submitButton}
       >
         Sign in
       </Button>
