@@ -2,6 +2,19 @@ import { put } from '@redux-saga/core/effects';
 import { auth, signOutFirebase, createUserProfileDocument } from '../../firebase';
 import AuthActions from 'redux/AuthRedux';
 
+export function* loadingAction({ classify }) {
+  try {
+    const response = yield  auth.currentUser;
+    if (response && response.user) {
+      yield put(AuthActions.loadingActionSuccess(classify, true));
+    } else {
+      yield put(AuthActions.loadingActionFailure(classify, false));
+    }
+  } catch (error) {
+    yield put(AuthActions.loadingActionFailure(classify, false));
+  }
+}
+
 export function* signInWithEmailAndPassword({ classify, params }) {
   const { email, password } = params;
   try {
@@ -17,11 +30,15 @@ export function* signInWithEmailAndPassword({ classify, params }) {
 }
 
 export function* createAccountWithEmailAndPassword({ classify, params }) {
-  const { email, password } = params;
+  const { firstName, email, password } = params;
   try {
     const response = yield auth.createUserWithEmailAndPassword(email, password);
     if (response && response.user) {
-      createUserProfileDocument(response.user, params);
+      const user = auth.currentUser;
+      if(user) {
+        user.updateProfile({ displayName: firstName, photoURL: firstName.charAt(0).toLocaleUpperCase() });
+        createUserProfileDocument(response.user, params);
+      }
       yield put(AuthActions.createAccountWithEmailAndPasswordSuccess(classify, response.user));
     } else {
       yield put(AuthActions.createAccountWithEmailAndPasswordFailure(classify, response));
@@ -35,11 +52,11 @@ export function* signOutFirebaseToLogin({ classify }) {
   try {
     const response = yield signOutFirebase();
     if (response) {
-      // yield put(AuthActions.signOutFirebaseSuccess(classify, response));
+      yield put(AuthActions.signOutFirebaseSuccess(classify, response));
     } else {
-      // yield put(AuthActions.signOutFirebaseFailure(classify, response));
+      yield put(AuthActions.signOutFirebaseFailure(classify, response));
     }
   } catch (error) {
-    // yield put(AuthActions.signOutFirebaseFailure(classify, error));
+    yield put(AuthActions.signOutFirebaseFailure(classify, error));
   }
 }
