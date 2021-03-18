@@ -4,15 +4,17 @@ import validate from 'validate.js';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button, Checkbox, FormHelperText, TextField, Typography, Link } from '@material-ui/core';
 
+import { useDispatch } from 'react-redux';
+import AuthActions from 'redux/AuthRedux';
+
 import { REGISTER_FORM } from 'const/Schema';
-import useRouter from 'hooks/useRouter';
 import { styles } from './styles';
 
 const useStyles = makeStyles(styles);
 
 function RegisterForm({ className }) {
   const classes = useStyles();
-  const { history } = useRouter();
+  const dispatch = useDispatch();
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -53,7 +55,9 @@ function RegisterForm({ className }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    history.push('/');
+    if (formState.isValid) {
+      dispatch(AuthActions.createAccountWithEmailAndPasswordRequest('user', formState.values));
+    }
   };
 
   const hasError = field => formState.touched[field] && formState.errors[field] ? true : false;

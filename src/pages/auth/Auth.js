@@ -1,23 +1,17 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useState } from 'react';
 import { renderRoutes } from 'react-router-config';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, LinearProgress } from '@material-ui/core';
+import { styles } from './styles';
 
-const useStyles = makeStyles(() => ({
-  content: {
-    height: '100vh',
-    backgroundColor: '#f4f6f8',
-  },
-  linearProgress: {
-    position: 'absolute',
-    top: '50%',
-    zIndex: 999,
-    transform: 'translateY(-50%)'
-  }
-}));
+import { useSelector } from 'react-redux';
+
+const useStyles = makeStyles(styles);
 
 function Auth({ route }) {
   const classes = useStyles();
+  const { contents } = useSelector(state => state.auth);
+  const [user, setUser] = useState(null);
 
   const renderLinearProgress = () => {
     return (
@@ -26,10 +20,11 @@ function Auth({ route }) {
       </Container>
     );
   }
+
   return (
     <main className={classes.content}>
       <Suspense fallback={renderLinearProgress()}>
-        {renderRoutes(route.routes)}
+        {!user ? renderRoutes(route.routes) : <div>Login Success</div>}
       </Suspense>
     </main>
   )
