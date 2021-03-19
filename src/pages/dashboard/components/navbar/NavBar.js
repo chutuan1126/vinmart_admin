@@ -9,7 +9,7 @@ import { Hidden } from '@material-ui/core';
 import { styles } from './styles';
 
 import useRouter from 'hooks/useRouter';
-import { Navigation } from 'components/navigation';
+import { Navigation } from 'components';
 import navigationConfig from './navigationConfig';
 
 const useStyles = makeStyles(styles);

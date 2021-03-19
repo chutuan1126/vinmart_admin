@@ -1,17 +1,19 @@
-import { put } from '@redux-saga/core/effects';
-import { auth, signOutFirebase, createUserProfileDocument } from '../../firebase';
+import { call, put } from '@redux-saga/core/effects';
+import { auth, signOutFirebase, createUserProfileDocument, handleonAuthStateChanged } from '../../firebase';
 import AuthActions from 'redux/AuthRedux';
 
 export function* loadingAction({ classify }) {
   try {
-    const response = yield  auth.currentUser;
-    if (response && response.user) {
-      yield put(AuthActions.loadingActionSuccess(classify, true));
+    const response = yield call(handleonAuthStateChanged);
+    if (response) {
+      const token = yield auth.currentUser.getIdToken(true);
+      localStorage.setItem('token', token);
+      yield put(AuthActions.loadingActionSuccess(classify, response));
     } else {
-      yield put(AuthActions.loadingActionFailure(classify, false));
+      yield put(AuthActions.loadingActionFailure(classify, response));
     }
   } catch (error) {
-    yield put(AuthActions.loadingActionFailure(classify, false));
+    yield put(AuthActions.loadingActionFailure(classify, error));
   }
 }
 
@@ -20,6 +22,8 @@ export function* signInWithEmailAndPassword({ classify, params }) {
   try {
     const response = yield auth.signInWithEmailAndPassword(email, password);
     if (response && response.user) {
+      const token = yield auth.currentUser.getIdToken(true);
+      localStorage.setItem('token', token);
       yield put(AuthActions.signInWithEmailAndPasswordSuccess(classify, response.user));
     } else {
       yield put(AuthActions.signInWithEmailAndPasswordFailure(classify, response));
@@ -35,7 +39,9 @@ export function* createAccountWithEmailAndPassword({ classify, params }) {
     const response = yield auth.createUserWithEmailAndPassword(email, password);
     if (response && response.user) {
       const user = auth.currentUser;
-      if(user) {
+      if (user) {
+        const token = yield user.getIdToken(true);
+        localStorage.setItem('token', token);
         user.updateProfile({ displayName: firstName, photoURL: firstName.charAt(0).toLocaleUpperCase() });
         createUserProfileDocument(response.user, params);
       }
@@ -52,6 +58,7 @@ export function* signOutFirebaseToLogin({ classify }) {
   try {
     const response = yield signOutFirebase();
     if (response) {
+      localStorage.removeItem('token');
       yield put(AuthActions.signOutFirebaseSuccess(classify, response));
     } else {
       yield put(AuthActions.signOutFirebaseFailure(classify, response));

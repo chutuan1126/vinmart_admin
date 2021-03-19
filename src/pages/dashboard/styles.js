@@ -11,7 +11,6 @@ export const styles = () => ({
     position: 'relative'
   },
   container: {
-    marginTop: 64,
     display: 'flex',
     flex: '1 1 auto',
     overflow: 'hidden',

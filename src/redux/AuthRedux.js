@@ -36,15 +36,16 @@ export default Creators;
 export const loadingActionRequest = (state, { classify }) => {
   return state.merge({
     fetching: { ...state.fetching, [classify]: true },
-    contents: { ...state.contents, [classify]: false },
+    contents: { ...state.contents, [classify]: state.contents[classify] || false },
     error: { ...state.error, [classify]: null },
   });
 };
 
 export const loadingActionSuccess = (state, { classify, payload }) => {
+  const { email, uid, displayName, photoURL } = payload;
   return state.merge({
     fetching: { ...state.fetching, [classify]: false },
-    contents: { ...state.contents, [classify]: payload },
+    contents: { ...state.contents, [classify]: true, user: { email, uid, displayName, photoURL } },
     error: { ...state.error, [classify]: null },
   });
 };

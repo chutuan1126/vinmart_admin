@@ -2,9 +2,7 @@
 import { colors } from 'styles/theme';
 import { getShadowStyle } from 'utils/StyleUtils';
 
-export const styles = theme => {
-console.log("🚀 ~ file: styles.js ~ line 4 ~ theme", theme)
-  return ({
+export const styles = theme => ({
   item: {
     display: 'block',
     paddingTop: 0,
@@ -59,4 +57,4 @@ console.log("🚀 ~ file: styles.js ~ line 4 ~ theme", theme)
       ...getShadowStyle({ color: colors.blue }),
     }
   }
-})};
+});

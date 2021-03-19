@@ -20,7 +20,7 @@ import {
   ViewModule
 } from '@material-ui/icons';
 
-import { Label } from 'components/label';
+import { Label } from 'components';
 
 export default [
   {
@@ -194,21 +194,6 @@ export default [
           {
             title: 'Security',
             href: '/settings/security'
-          }
-        ]
-      },
-      {
-        title: 'Authentication',
-        href: '/auth',
-        icon: LockOpen,
-        children: [
-          {
-            title: 'Login',
-            href: '/auth/login'
-          },
-          {
-            title: 'Register',
-            href: '/auth/register'
           }
         ]
       },
