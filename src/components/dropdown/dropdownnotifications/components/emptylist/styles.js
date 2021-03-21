@@ -5,7 +5,7 @@ export const styles = theme => ({
   },
   image: {
     height: 240,
-    backgroundImage: 'url("/images/undraw_empty_xct9.svg")',
+    backgroundImage: 'url("https://i.pinimg.com/originals/ae/8a/c2/ae8ac2fa217d23aadcc913989fcc34a2.png")',
     backgroundPositionX: 'right',
     backgroundPositionY: 'center',
     backgroundRepeat: 'no-repeat',

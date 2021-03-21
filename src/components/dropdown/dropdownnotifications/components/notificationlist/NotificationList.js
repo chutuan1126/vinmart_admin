@@ -5,7 +5,6 @@ import moment from 'moment';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Avatar, List, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import PaymentIcon from '@material-ui/icons/Payment';
 import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 import CodeIcon from '@material-ui/icons/Code';
@@ -14,7 +13,7 @@ import { styles } from './styles';
 
 const useStyles = makeStyles(styles);
 
-const NotificationList = ({ notifications }) => {
+const NotificationList = ({ options }) => {
   const classes = useStyles();
 
   const avatars = {
@@ -41,22 +40,21 @@ const NotificationList = ({ notifications }) => {
   };
 
   return (
-    <List disablePadding >
-      {notifications.map((notification, i) => (
+    <List disablePadding className={classes.notiList}>
+      {options.map((option, i) => (
         <ListItem
           to="#"
-          key={notification.id}
+          key={option.id}
           component={RouterLink}
           className={classes.listItem}
-          divider={i < notifications.length - 1}
+          divider={i < options.length - 1}
         >
-          <ListItemAvatar>{avatars[notification.type]}</ListItemAvatar>
+          <ListItemAvatar>{avatars[option.type]}</ListItemAvatar>
           <ListItemText
-            primary={notification.title}
+            primary={option.title}
             primaryTypographyProps={{ variant: 'body1' }}
-            secondary={moment(notification.created_at).fromNow()}
+            secondary={moment(option.created_at).fromNow()}
           />
-          <ArrowForwardIcon className={classes.arrowForwardIcon} />
         </ListItem>
       ))}
     </List>
@@ -64,8 +62,7 @@ const NotificationList = ({ notifications }) => {
 };
 
 NotificationList.propTypes = {
-  className: PropTypes.string,
-  notifications: PropTypes.array.isRequired
+  options: PropTypes.array.isRequired
 };
 
 export default NotificationList;

@@ -16,12 +16,6 @@ export const styles = () => ({
     overflow: 'hidden',
     height: 'calc(100vh - 64px)'
   },
-  navBar: {
-    zIndex: 3,
-    width: 256,
-    minWidth: 256,
-    flex: '0 0 auto'
-  },
   content: {
     overflowY: 'auto',
     flex: '1 1 auto'

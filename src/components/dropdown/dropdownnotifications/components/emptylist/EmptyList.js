@@ -12,7 +12,6 @@ const EmptyList = () => {
   return (
     <div className={classes.root}>
       <div className={classes.image} />
-      <Typography variant="h4">There's nothing here...</Typography>
     </div>
   );
 };

@@ -62,5 +62,16 @@ export const styles = theme => ({
   },
   logoutIcon: {
     marginRight: theme.spacing(1)
+  },
+  avatar: {
+    padding: 0,
+    marginLeft: theme.spacing(1)
+  },
+  langIcons: {
+    padding: 0,
+    marginLeft: theme.spacing(1),
+    '& img': {
+      width: 32,
+    }
   }
 });
