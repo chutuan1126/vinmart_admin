@@ -5,7 +5,7 @@ export const styles = theme => ({
   notiList: {
     position: 'absolute',
     right: '-100%',
-    top: 40,
+    top: 48,
     zIndex: 10,
     borderRadius: 8,
     width: 'max-content',

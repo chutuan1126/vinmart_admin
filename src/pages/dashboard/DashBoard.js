@@ -45,15 +45,12 @@ const Dashboard = ({ route }) => {
 
   return (
     <div className={classes.root}>
-      <Header
-        className={classes.topBar}
-        onOpenNavBarMobile={handleNavBarMobileOpen}
-      />
+      <Header onOpenNavBarMobile={handleNavBarMobileOpen} />
       <div className={classes.container}>
         <NavBar
           className={classes.navBar}
-          onMobileClose={handleNavBarMobileClose}
           openMobile={openNavBarMobile}
+          onMobileClose={handleNavBarMobileClose}
         />
         <main className={classes.content}>
           <Suspense fallback={<Loading />}>

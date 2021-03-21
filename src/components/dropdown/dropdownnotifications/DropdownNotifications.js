@@ -18,18 +18,18 @@ function DropdownNotifications() {
   const [ref, isOpen, setisOpen] = useClickOutside(false);
 
   const renderDropdownNotifications = () => {
-    if(!isOpen) return null;
+    if (!isOpen) return null;
     return list_notis.length ? <NotificationList options={list_notis} /> : <EmptyList />;
   }
 
   return (
-    <div>
-      <IconButton color="inherit" ref={ref} className={classes.notiButton} onClick={() => setisOpen(!isOpen)}>
+    <div ref={ref} className={classes.root}>
+      <IconButton color="inherit" className={classes.notiButton} onClick={() => setisOpen(!isOpen)}>
         <Badge variant="dot" classes={{ badge: classes.notiBadge }}>
           <NotificationsIcon />
         </Badge>
-        {renderDropdownNotifications()}
       </IconButton>
+      {renderDropdownNotifications()}
     </div>
   )
 }

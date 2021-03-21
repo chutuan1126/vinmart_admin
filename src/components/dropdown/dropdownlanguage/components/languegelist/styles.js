@@ -1,9 +1,9 @@
 import { colors, boxShadows } from 'styles/theme';
 
-export const styles = () => ({
+export const styles = theme => ({
   langList: {
     position: 'absolute',
-    top: 32,
+    top: 40,
     zIndex: 10,
     borderRadius: 8,
     width: 'max-content',
@@ -16,6 +16,9 @@ export const styles = () => ({
     '& img': {
       width: 32,
       marginRight: 16
+    },
+    '&:hover': {
+      backgroundColor: theme.palette.background.default
     }
   }
 });

@@ -7,7 +7,7 @@ import { List, ListItem } from '@material-ui/core';
 
 const useStyles = makeStyles(styles);
 
-function LangList({ open, options, className, handleOnClick }) {
+function LangList({ open, options, handleOnClick }) {
   const { t } = useTranslation(["auth", "header"]);
   
   const classes = useStyles();

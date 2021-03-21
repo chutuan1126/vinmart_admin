@@ -6,10 +6,6 @@ export const styles = () => ({
     flexDirection: 'column',
     overflow: 'hidden'
   },
-  topBar: {
-    zIndex: 2,
-    position: 'relative'
-  },
   container: {
     display: 'flex',
     flex: '1 1 auto',
