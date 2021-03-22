@@ -1,7 +1,11 @@
 export const styles = theme => ({
   root: {
     height: '100%',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    zIndex: 3,
+    width: 256,
+    minWidth: 256,
+    flex: '0 0 auto'
   },
   content: {
     padding: theme.spacing(2)

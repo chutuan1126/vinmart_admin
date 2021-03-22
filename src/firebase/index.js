@@ -53,3 +53,15 @@ export const signOutFirebase = async () => {
       return { success: false, error }
     })
 }
+
+export const handleonAuthStateChanged = () => {
+  return new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        resolve(user);
+      } else {
+        reject(null);
+      }
+    });
+  });
+}
