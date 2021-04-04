@@ -1,8 +1,8 @@
 import React, { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
 
-import AuthLayout from 'pages/auth';
-import DashboardLayout from 'pages/dashboard';
+import AuthLayout from 'layouts/auth';
+import DashboardLayout from 'layouts/dashboard';
 
 const routes = [
   {
@@ -30,7 +30,7 @@ const routes = [
       {
         path: '/overview',
         exact: true,
-        component: lazy(() => import('container/dashboards/analytics'))
+        component: lazy(() => import('container/overview'))
       },
       {
         path: '/dashboards/analytics',

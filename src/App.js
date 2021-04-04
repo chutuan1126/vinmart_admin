@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import 'styles/styles.css';
 
-import MainLayout from 'pages/main';
+import MainLayout from 'layouts/main';
 
 import routes from './routes';
 

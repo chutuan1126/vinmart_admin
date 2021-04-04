@@ -21,6 +21,7 @@ export const styles = theme => ({
     }
   },
   font14: {
+    opacity: 0.5,
     fontSize: 14,
   },
   font18: {
