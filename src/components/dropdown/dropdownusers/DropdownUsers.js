@@ -39,7 +39,7 @@ function DropdownUsers() {
   return (
     <div ref={ref} className={classes.root}>
       <IconButton color="inherit" onClick={() => setisOpen(!isOpen)} className={classes.avatarButton}>
-        <Avatar colorDefault={'#2323'} className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg">T</Avatar>
+        <Avatar className={classes.avatar} alt="Remy Sharp" src="/static/images/avatar/1.jpg">T</Avatar>
       </IconButton>
       <UserList open={isOpen} handleOnClick={handleOnClick} />
     </div>
