@@ -6,5 +6,8 @@ export const styles = theme => ({
   },
   flexGrow: {
     flexGrow: 1
+  },
+  navBarMobile: {
+    marginLeft: 10
   }
 });

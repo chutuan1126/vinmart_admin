@@ -14,6 +14,7 @@ const storeConfig = {
 
 const reducers = combineReducers({
   auth: require('./AuthRedux').reducer,
+  chat: require('./ChatRedux').reducer,
 });
 
 const composeEnhancers =

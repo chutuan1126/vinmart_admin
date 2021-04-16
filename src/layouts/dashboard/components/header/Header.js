@@ -8,7 +8,7 @@ import { AppBar, IconButton, Toolbar, Hidden } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { styles } from './styles';
 
-import { SearchAnalytics, DropdownLanguage, DropdownNotifications, DropdownUsers } from 'components/dropdown';
+import { SearchAnalytics, DropdownLanguage, DropdownNotifications, DropdownUsers, DropdownConversation } from 'components/dropdown';
 
 const useStyles = makeStyles(styles);
 
@@ -24,10 +24,11 @@ function Header({ onOpenNavBarMobile }) {
         <div className={classes.flexGrow} />
         <SearchAnalytics />
         <DropdownLanguage />
+        <DropdownConversation />
         <DropdownNotifications />
         <DropdownUsers />
         <Hidden lgUp>
-          <IconButton color="inherit" onClick={onOpenNavBarMobile} >
+          <IconButton color="inherit" className={classes.navBarMobile} onClick={onOpenNavBarMobile} >
             <MenuIcon />
           </IconButton>
         </Hidden>

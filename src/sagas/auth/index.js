@@ -1,6 +1,8 @@
 import { takeLatest } from "redux-saga/effects";
 import { AuthTypes } from 'redux/AuthRedux';
+import { ChatTypes } from 'redux/ChatRedux';
 import { loadingAction, signInWithEmailAndPassword, createAccountWithEmailAndPassword, signOutFirebaseToLogin } from "./AuthSaga";
+import { getListConversation } from '../chat/ChatSaga';
 
 // Auth
 export function* authWatcher() {

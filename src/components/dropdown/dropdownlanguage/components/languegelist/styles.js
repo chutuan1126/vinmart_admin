@@ -3,6 +3,7 @@ import { colors, boxShadows } from 'styles/theme';
 export const styles = theme => ({
   langList: {
     position: 'absolute',
+    overflow: 'hidden',
     top: 40,
     zIndex: 10,
     borderRadius: 8,

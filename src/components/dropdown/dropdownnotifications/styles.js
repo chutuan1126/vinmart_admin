@@ -5,7 +5,7 @@ export const styles = theme => ({
     position: 'relative'
   },
   notiButton: {
-    marginLeft: theme.spacing(1)
+    marginLeft: 0
   },
   notiBadge: {
     backgroundColor: colors.orange
